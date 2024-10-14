@@ -51,5 +51,30 @@ class User extends Authenticatable
         return $this->hasMany(Information::class);
     }
 
+    public function agenda()
+    {
+        return $this->hasMany(Agenda::class);
+    }
+
+    public function galeri()
+    {
+        return $this->hasMany(Gallery::class);
+    }
+
+
+    public function image()
+    {
+        return $this->hasMany(Image::class);
+    }
+
  
+
+  
+
+  
+    
+
+    
+
+   
 }
