@@ -7,12 +7,12 @@ use App\Http\Controllers\Api\InfoController;
 use App\Http\Controllers\Api\AgendaController;
 use App\Http\Controllers\Api\GalleryController;
 use App\Http\Controllers\Api\ImageController;
-use App\Http\Controllers\Api\PostController;
+use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware([EnsureFrontendRequestsAreStateful::class, 'auth:sanctum'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     
     // Resource routes for info, agenda, and foto

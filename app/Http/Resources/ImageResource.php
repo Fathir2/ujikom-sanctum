@@ -16,13 +16,12 @@ class ImageResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user_id' => $this->user_id,
-            'gallery_id' => $this->gallery_id,
+            'image' => asset('storage/' . $this->image),
             'title_image' => $this->title_image,
-            'image' => $this->image,
             'description' => $this->description,
+            'gallery_id' => $this->gallery_id,
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
+            'updated_at' => $this->updated_at,
         ];
     }
 }

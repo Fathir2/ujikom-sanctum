@@ -53,7 +53,10 @@ class GalleryController extends Controller
     public function destroy(Gallery $gallery)
     {
         $gallery->delete();
-
-        return response()->json(null, 204);
+    
+        return response()->json([
+            'message' => 'Data berhasil dihapus'
+        ], 200);
     }
+    
 }

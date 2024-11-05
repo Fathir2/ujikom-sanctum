@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 
+
 class ImageController extends Controller
 {
     /**
@@ -31,16 +32,13 @@ class ImageController extends Controller
             'title_image' => 'required|string|max:255',
             'description' => 'nullable|string',
             'gallery_id' => 'required|exists:galleries,id'
-            // Validasi untuk album_id
         ]);
 
         // Simpan gambar ke storage dan dapatkan path-nya
         $path = $request->file('image')->store('images', 'public');
-
-        // Gabungkan path gambar ke data validasi lain
         $validated['image'] = $path;
 
-        // Simpan data gambar ke database termasuk album_id
+        // Simpan data gambar ke database
         $img = $request->user()->image()->create($validated);
 
         return new ImageResource($img);
@@ -54,25 +52,35 @@ class ImageController extends Controller
         return new ImageResource($img);
     }
 
-
+    
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Image $img)
+    public function destroy($id)
     {
-
-        // Hapus gambar dari storage
-        if ($img->image) {
+        $img = Image::find($id);
+    
+        if (!$img) {
+            return response()->json(['message' => 'Gambar tidak ditemukan'], 404);
+        }
+    
+        Log::info("Data gambar yang akan dihapus:", ['id' => $img->id, 'image' => $img->image]);
+    
+        // Hapus gambar dari storage jika ada
+        if ($img->image && Storage::disk('public')->exists($img->image)) {
             Storage::disk('public')->delete($img->image);
         }
     
-        // Hapus gambar dari database
+        // Hapus data gambar dari database
         $img->delete();
+    
+        Log::info("Gambar dengan ID: {$img->id} berhasil dihapus dari database");
     
         return response()->json([
             'message' => 'Gambar berhasil dihapus',
         ], 200);
-
     }
-
+    
+    
+    
 }
