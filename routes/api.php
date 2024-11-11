@@ -9,7 +9,9 @@ use App\Http\Controllers\Api\AgendaController;
 use App\Http\Controllers\Api\GalleryController;
 use App\Http\Controllers\Api\ImageController;
 use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
+use App\Http\Controllers\Api\SearchController;
 
+Route::get('/search', [SearchController::class, 'search']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
