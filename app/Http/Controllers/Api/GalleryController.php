@@ -21,6 +21,7 @@ class GalleryController extends Controller
     {
         $validated = $request->validate([
             'title_album' => 'required|string|max:255',
+            'category_id' => 'nullable|exists:cathegories,id',
             'due_date' => 'required|date',
         ]);
 
@@ -41,6 +42,7 @@ class GalleryController extends Controller
     {
         $validated = $request->validate([
             'title_album' => 'required|string|max:255',
+            'category_id' => 'nullable|exists:cathegories,id',
             'due_date' => 'required|date',
         ]);
 

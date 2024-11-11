@@ -19,6 +19,7 @@ class InfoResource extends JsonResource
             'title' => $this->title,
             'description' => $this->description,
             'date' => $this->date,
+            'picture' => $this->picture,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

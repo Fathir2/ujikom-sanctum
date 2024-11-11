@@ -11,6 +11,7 @@ class Gallery extends Model
 
     protected $fillable = [
         'title_album',
+        'category_id',
         'due_date'
     ];
 
@@ -22,6 +23,11 @@ class Gallery extends Model
     public function images()
     {
         return $this->hasMany(Image::class);
+    }
+
+    public function cathegory()
+    {
+        return $this->belongsTo(Cathegory::class);
     }
 
 }
